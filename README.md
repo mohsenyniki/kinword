@@ -14,6 +14,7 @@ Kinword is a data platform that traces shared word origins across **Persian, Ara
 - [How It Works](#how-it-works)
 - [Who It's For](#who-its-for)
 - [The End Product](#the-end-product)
+- [UI Mockups](#ui-mockups)
 - [Architecture](#architecture)
 - [Tech Stack](#tech-stack)
 - [Data Sources](#data-sources)
@@ -75,6 +76,18 @@ The goal is to answer one question for a learner:
 
 **3. Public API**
 - REST endpoints for words, etymology links, and learner baselines, so other tools can build on the data.
+
+## UI Mockups
+
+Early design mockups of the learner flow (mobile) and the overlap dashboard (desktop). Placeholders like `[N]` and `[%]` will be filled from the pipeline's output.
+
+| 1 · Pick your languages | 2 · Your head start | 3 · Word family | 4 · Search |
+|:---:|:---:|:---:|:---:|
+| <img src="docs/mockups/1-pick-languages.png" width="200" alt="Language picker: choose the languages you speak and the one you're learning"> | <img src="docs/mockups/2-head-start.png" width="200" alt="Head start: list of Spanish words you likely already recognize"> | <img src="docs/mockups/3-word-family.png" width="200" alt="Word family for azúcar, tracing it to Sanskrit śarkarā across five languages"> | <img src="docs/mockups/4-search.png" width="200" alt="Search: look up a word and see its relatives in other languages"> |
+
+**5 · Overlap dashboard**
+
+<img src="docs/mockups/5-overlap-dashboard.png" alt="Overlap dashboard: language-pair overlap matrix, top shared topics, and word of the day">
 
 ## Architecture
 
@@ -162,6 +175,7 @@ mart_language_overlap   (lang_a, lang_b, origin, shared_word_count, pct_top_1000
 ### Phase 0: Foundation 🚧
 - [x] Create repository
 - [x] Write project README and architecture plan
+- [x] UI mockups for the learner flow and dashboard
 - [ ] Set up repo structure, Docker Compose, and LocalStack
 - [ ] Add CI (linting + tests) with GitHub Actions
 
