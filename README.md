@@ -46,11 +46,29 @@ The goal is to answer one question for a learner:
 
 ## How It Works
 
-1. **Ingest** etymology and vocabulary data (Wiktionary extracts, word-frequency lists) for each language.
-2. **Normalize** words across scripts (Arabic, Persian, Cyrillic, Latin) using transliteration so they can be compared.
-3. **Link** words that share an origin: borrowings, inherited cognates, and common ancestors, each with a relation type and a confidence score.
-4. **Score** each link for *recognizability* (how similar the words look and sound after transliteration) and *usefulness* (how frequent the word is in the target language).
-5. **Serve** a personalized "known-word baseline" and an overlap dashboard through an API.
+Kinword has two parts. A **data pipeline** turns open linguistic data (Wiktionary etymologies and word-frequency lists) into a clean map of which words share an origin. A **learner app** then uses that map to show each person the words they already know in the language they're learning.
+
+### 1. The data side: building the word map
+
+The pipeline pulls word entries, etymologies, and translations from **Wiktionary** (via Wiktextract / kaikki.org) and word-frequency ranks from **wordfreq**, then processes them in stages:
+
+1. **Ingest:** download the source data for each language and land it as-is in an S3 raw zone.
+2. **Normalize:** clean the entries and transliterate Arabic, Persian, and Cyrillic words into a shared Latin form so they can be compared.
+3. **Link:** connect words that share an origin (borrowings, inherited cognates, common ancestors), each with a relation type and a confidence score.
+4. **Score:** rate each link for *recognizability* (how alike the words look and sound) and *usefulness* (how common the word is in the target language).
+5. **Load:** model the results in a PostgreSQL warehouse with dbt, ready for the app to query.
+
+Full details: [Architecture](#architecture) · [Data Sources](#data-sources) · [Data Model](#data-model)
+
+### 2. The user side: what learners see
+
+1. **Pick your languages:** choose the languages you speak and the one you're learning.
+2. **Get your head start:** see a ranked list of target-language words you likely already recognize, and roughly how many there are.
+3. **Explore word families:** open any word to see its relatives across languages and where it came from.
+4. **Search:** look up any word in any of your languages and find its relatives.
+5. **Compare languages:** a dashboard shows how much vocabulary each pair of languages shares, and in which topics.
+
+See it in action: [UI Mockups](#ui-mockups) · [The End Product](#the-end-product)
 
 ## Who It's For
 
